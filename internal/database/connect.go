@@ -10,8 +10,6 @@ import (
 	_ "github.com/lib/pq"
 )
 
-var DB *sql.DB
-
 func PQConnection(environmentPath string) {
 	// Create Data Source Name
 	dsn := pqDataSourceName(environmentPath)

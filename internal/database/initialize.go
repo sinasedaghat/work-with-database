@@ -1,6 +1,11 @@
 package database
 
-import "log"
+import (
+	"database/sql"
+	"log"
+)
+
+var DB *sql.DB
 
 func PQInitialize() {
 	// Create Enums and Types
@@ -12,12 +17,18 @@ func PQInitialize() {
 	must(createStudentTable, "students table")
 
 	// Seed tables
-	seedDepartment()
-	seedProgram()
+	seed(seedDepartment, "department")
+	seed(seedProgram, "department")
 }
 
 func must(createFunc func() error, statementRole string) {
 	if err := createFunc(); err != nil {
 		log.Fatalf("🗄️ Failed to create %s: %v", statementRole, err)
+	}
+}
+
+func seed(seedFunc func() error, tableName string) {
+	if err := seedFunc(); err != nil {
+		log.Fatalf("🌱 Failed to seed %s: %v", tableName, err)
 	}
 }
