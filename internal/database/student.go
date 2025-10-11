@@ -28,7 +28,7 @@ func createStudentStatusEnums() error {
 	return err
 }
 
-func createStudentTable() error {
+func createStudentsTable() error {
 	query := `
 		CREATE TABLE IF NOT EXISTS students (
 			id BIGSERIAL PRIMARY KEY,
@@ -42,8 +42,8 @@ func createStudentTable() error {
 			email VARCHAR(100) UNIQUE NOT NULL,
 			phone VARCHAR(20),
 
-			department_id INT REFERENCES department(id) ON DELETE RESTRICT,
-			program_id    INT REFERENCES program(id)    ON DELETE RESTRICT,
+			department_id INT REFERENCES departments(id) ON DELETE RESTRICT,
+			program_id    INT REFERENCES programs(id)    ON DELETE RESTRICT,
 
 			enrollment_year SMALLINT,
 			current_semester SMALLINT,

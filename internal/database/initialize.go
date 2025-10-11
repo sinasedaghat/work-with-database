@@ -12,13 +12,13 @@ func PQInitialize() {
 	must(createStudentStatusEnums, "student status enum")
 
 	// Create tables
-	must(createDepartmentTable, "departments table")
-	must(createProgramTable, "programs table")
-	must(createStudentTable, "students table")
+	must(createDepartmentsTable, "departments table")
+	must(createProgramsTable, "programs table")
+	must(createStudentsTable, "students table")
 
 	// Seed tables
-	seed(seedDepartment, "department")
-	seed(seedProgram, "department")
+	seed(seedDepartments, "departments")
+	seed(seedPrograms, "programs")
 }
 
 func must(createFunc func() error, statementRole string) {

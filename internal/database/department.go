@@ -10,23 +10,23 @@ var departments = []string{
 	"Economics",
 }
 
-func createDepartmentTable() error {
+func createDepartmentsTable() error {
 	query := `
-		CREATE TABLE IF NOT EXISTS department (
+		CREATE TABLE IF NOT EXISTS departments (
 			id SERIAL PRIMARY KEY,
-			name VARCHAR(20) UNIQUE NOT NULL
+			name VARCHAR(100) UNIQUE NOT NULL
 		)
 	`
 	_, err := DB.Exec(query)
 	return err
 }
 
-func seedDepartment() error {
+func seedDepartments() error {
 	query := `
-		INSERT INTO department (name) 
+		INSERT INTO departments (name) 
 		VALUES ($1) 
-		ON CONFLICT (name) DO NOTHING
 	`
+	// TODO: i can't use this line my query `ON CONFLICT (name) DO NOTHING`
 
 	for _, departmentName := range departments {
 		if _, err := DB.Exec(query, departmentName); err != nil {
