@@ -19,7 +19,8 @@ func createProgramsTable() error {
 		CREATE TABLE IF NOT EXISTS programs (
 			id SERIAL PRIMARY KEY,
 			name VARCHAR(100) NOT NULL,
-			department_id INT REFERENCES departments(id) ON DELETE RESTRICT
+			department_id INT REFERENCES departments(id) ON DELETE RESTRICT,
+			UNIQUE (name, department_id)
 		)
 	`
 	_, err := DB.Exec(query)
@@ -38,10 +39,10 @@ func seedPrograms() error {
 			if _, err := DB.Exec(`
 				INSERT INTO programs (name, department_id)
 				VALUES ($1, $2)
+				ON CONFLICT (name, department_id) DO NOTHING
 				`, pr, depId); err != nil {
 				return err
 			}
-			// TODO: i can't use this line my query `ON CONFLICT (name) DO NOTHING`
 		}
 	}
 	return nil

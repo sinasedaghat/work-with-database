@@ -24,9 +24,9 @@ func createDepartmentsTable() error {
 func seedDepartments() error {
 	query := `
 		INSERT INTO departments (name) 
-		VALUES ($1) 
+		VALUES ($1)
+		ON CONFLICT (name) DO NOTHING
 	`
-	// TODO: i can't use this line my query `ON CONFLICT (name) DO NOTHING`
 
 	for _, departmentName := range departments {
 		if _, err := DB.Exec(query, departmentName); err != nil {
